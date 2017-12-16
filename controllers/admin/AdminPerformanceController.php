@@ -107,7 +107,11 @@ class AdminPerformanceControllerCore extends AdminController
                             'value' => 'mysql',
                             'label' => $this->l('MySQL')
                         ),
-
+                        array(
+                            'id' => 'smarty_caching_type_apc',
+                            'value' => 'apc',
+                            'label' => $this->l('APC').((extension_loaded('apc') || extension_loaded('apcu')) ? '' : $warning_apc)
+                        ),
                     )
                 ),
                 array(

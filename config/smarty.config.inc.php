@@ -37,9 +37,15 @@ if (!Tools::getSafeModeStatus()) {
 }
 $smarty->setConfigDir(_PS_SMARTY_DIR_.'configs');
 $smarty->caching = false;
-if (Configuration::get('PS_SMARTY_CACHING_TYPE') == 'mysql') {
-    include(_PS_CLASS_DIR_.'/SmartyCacheResourceMysql.php');
-    $smarty->caching_type = 'mysql';
+switch (Configuration::get('PS_SMARTY_CACHING_TYPE')) {
+    case 'mysql':
+        include(_PS_CLASS_DIR_.'/SmartyCacheResourceMysql.php');
+        $smarty->caching_type = 'mysql';
+        break;
+    case 'apc':
+        include(_PS_CLASS_DIR_.'/SmartyCacheResourceApc.php');
+        $smarty->caching_type = 'apc';
+        break;
 }
 $smarty->force_compile = (Configuration::get('PS_SMARTY_FORCE_COMPILE') == _PS_SMARTY_FORCE_COMPILE_) ? true : false;
 $smarty->compile_check = (Configuration::get('PS_SMARTY_FORCE_COMPILE') >= _PS_SMARTY_CHECK_COMPILE_) ? true : false;
